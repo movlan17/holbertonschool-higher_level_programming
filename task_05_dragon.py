@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+"""
+5. The Mystical Dragon - Mastering Mixins
+"""
 
 class SwimMixin:
     """Mixin that adds swimming ability."""
@@ -13,7 +16,8 @@ class FlyMixin:
 
 
 class Dragon(SwimMixin, FlyMixin):
-    """Dragon class that can both swim and fly."""
+    """Dragon class that can swim and fly."""
+
     def roar(self):
         print("The dragon roars!")
-        
+
