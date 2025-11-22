@@ -1,16 +1,13 @@
 #!/usr/bin/env python3
 """
-Task 01 - Pickling Custom Classes
+1. Pickling Custom Classes
 """
 
 import pickle
 
 
 class CustomObject:
-    """
-    CustomObject class with attributes:
-    name (str), age (int), is_student (bool)
-    """
+    """Custom object with attributes name, age, and is_student"""
 
     def __init__(self, name, age, is_student):
         self.name = name
@@ -18,44 +15,28 @@ class CustomObject:
         self.is_student = is_student
 
     def display(self):
-        """
-        Display object attributes in a readable format.
-        """
-        print("Name: {}".format(self.name))
-        print("Age: {}".format(self.age))
-        print("Is Student: {}".format(self.is_student))
+        """Display the object's attributes"""
+        print(f"Name: {self.name}")
+        print(f"Age: {self.age}")
+        print(f'Is Student: {self.is_student}')
 
     def serialize(self, filename):
-        """
-        Serialize the object to a file using pickle.
-
-        Args:
-            filename (str): The file path to save the object.
-
-        Returns:
-            None
-        """
+        """Serialize the object to a file using pickle"""
         try:
-            with open(filename, 'wb') as f:
+            with open(filename, "wb") as f:
                 pickle.dump(self, f)
-        except (OSError, pickle.PickleError):
+        except Exception:
             return None
 
     @classmethod
     def deserialize(cls, filename):
-        """
-        Deserialize an object from a pickle file.
-
-        Args:
-            filename (str): The file path to read the object from.
-
-        Returns:
-            CustomObject or None: Returns the object if successful, else None
-        """
+        """Deserialize an object from a file using pickle"""
         try:
-            with open(filename, 'rb') as f:
+            with open(filename, "rb") as f:
                 obj = pickle.load(f)
-            return obj
-        except (OSError, pickle.PickleError):
+            if isinstance(obj, cls):
+                return obj
+            return None
+        except Exception:
             return None
 
