@@ -1,54 +1,44 @@
 #!/usr/bin/env python3
-import requests
-import csv
+from http.server import BaseHTTPRequestHandler, HTTPServer
+import json
+
+class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
+
+    def do_GET(self):
+        # ROOT ENDPOINT "/"
+        if self.path == "/":
+            self.send_response(200)
+            self.send_header("Content-Type", "text/plain")
+            self.end_headers()
+            self.wfile.write(b"Hello, World!")
+            return
+
+        # "/data"
+        if self.path == "/data":
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json")
+            self.end_headers()
+            data = {"name": "Holberton", "city": "San Francisco"}
+            self.wfile.write(json.dumps(data).encode())
+            return
+
+        # "/status"
+        if self.path == "/status":
+            self.send_response(200)
+            self.send_header("Content-Type", "text/plain")
+            self.end_headers()
+            self.wfile.write(b"OK")
+            return
+
+        # UNDEFINED ENDPOINTS
+        self.send_response(404)
+        self.send_header("Content-Type", "text/plain")
+        self.end_headers()
+        self.wfile.write(b"Not Found")
 
 
-def fetch_and_print_posts():
-    """
-    Fetch all posts from JSONPlaceholder and print:
-    - The HTTP status code
-    - The title of each post
-    """
-    url = "https://jsonplaceholder.typicode.com/posts"
-    response = requests.get(url)
-
-    # Print response status code
-    print(f"Status Code: {response.status_code}")
-
-    # If request successful, parse JSON and print post titles
-    if response.status_code == 200:
-        posts = response.json()  # Convert JSON to Python list/dicts
-        for post in posts:
-            print(post.get("title"))
-
-
-def fetch_and_save_posts():
-    """
-    Fetch all posts and save the id, title, and body fields
-    into a CSV file called posts.csv
-    """
-    url = "https://jsonplaceholder.typicode.com/posts"
-    response = requests.get(url)
-
-    # If request successful, save data into CSV file
-    if response.status_code == 200:
-        posts = response.json()
-
-        # Convert each post into a simplified dictionary
-        structured_posts = [
-            {
-                "id": post.get("id"),
-                "title": post.get("title"),
-                "body": post.get("body")
-            }
-            for post in posts
-        ]
-
-        # Write CSV file
-        with open("posts.csv", "w", newline="", encoding="utf-8") as csvfile:
-            fieldnames = ["id", "title", "body"]
-            writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
-
-            writer.writeheader()
-            writer.writerows(structured_posts)
+if __name__ == "__main__":
+    server = HTTPServer(("localhost", 8000), SimpleHTTPRequestHandler)
+    print("Server running on port 8000...")
+    server.serve_forever()
 
