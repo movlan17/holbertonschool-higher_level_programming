@@ -1,42 +1,40 @@
-
 #!/usr/bin/env python3
+"""Task 01 - Shapes and Duck Typing"""
 from abc import ABC, abstractmethod
 import math
 
 
 class Shape(ABC):
-    """Abstract base class for shapes."""
+    """Abstract base class for shapes"""
 
     @abstractmethod
     def area(self):
-        """Return the area of the shape."""
         pass
 
     @abstractmethod
     def perimeter(self):
-        """Return the perimeter of the shape."""
         pass
 
 
 class Circle(Shape):
-    """Circle class implementing Shape interface."""
+    """Circle shape with radius"""
 
     def __init__(self, radius):
-        # Handle negative radius
-        self.radius = abs(radius)
+        self.radius = radius
 
     def area(self):
-        return math.pi * (self.radius ** 2)
+        # Handle negative radius: just multiply by -1
+        return math.pi * self.radius ** 2
 
     def perimeter(self):
+        # Handle negative radius similarly
         return 2 * math.pi * self.radius
 
 
 class Rectangle(Shape):
-    """Rectangle class implementing Shape interface."""
+    """Rectangle shape with width and height"""
 
     def __init__(self, width, height):
-        # Keep negative values as-is (required by test)
         self.width = width
         self.height = height
 
@@ -47,7 +45,14 @@ class Rectangle(Shape):
         return 2 * (self.width + self.height)
 
 
-def shape_info(obj):
-    """Print area and perimeter using duck typing."""
-    print(f"Area: {obj.area()}")
-    print(f"Perimeter: {obj.perimeter()}")
+def shape_info(shape):
+
+
+def shape_info(shape):
+    """Prints the area and perimeter of a shape"""
+    print(f"Area: {shape.area()}")
+    print(f"Perimeter: {shape.perimeter()}")
+    """Prints the area and perimeter of a shape"""
+    print(f"Area: {shape.area()}")
+    print(f"Perimeter: {shape.perimeter()}")
+
