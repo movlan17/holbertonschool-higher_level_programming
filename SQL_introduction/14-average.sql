@@ -1,5 +1,5 @@
--- Script that removes all records with score <= 5 from 'second_table'
+-- Script that calculates the average score of all records in second_table
 
-DELETE FROM second_table
-WHERE score <= 5;
+SELECT AVG(score) AS average
+FROM second_table;
 
