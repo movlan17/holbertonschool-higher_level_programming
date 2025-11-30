@@ -1,7 +1,7 @@
--- List all shows with at least one genre
-
-SELECT TV_SHOWS.TITLE, TV_SHOW_GENRES.GENRE_ID
-FROM TV_SHOWS
-JOIN TV_SHOW_GENRES ON TV_SHOWS.ID = TV_SHOW_GENRES.SHOW_ID
-ORDER BY TV_SHOWS.TITLE ASC, TV_SHOW_GENRES.GENRE_ID ASC;
-
+-- Lists all shows in hbtn_0d_tvshows that have at least one genre linked.
+-- Records are sorted by ascending tv_shows.title and tv_show_genres.genre_id.
+SELECT s.`title`, g.`genre_id`
+  FROM `tv_shows` AS s
+        INNER JOIN `tv_show_genres` AS g
+	ON s.`id` = g.`show_id`
+ ORDER BY s.`title`, g.`genre_id`;
