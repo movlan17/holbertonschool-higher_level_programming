@@ -1,5 +1,7 @@
-SELECT tv_shows.title, tv_show_genres.genre_id
-FROM tv_shows
-JOIN tv_show_genres ON tv_shows.id = tv_show_genres.show_id
-ORDER BY tv_shows.title ASC, tv_show_genres.genre_id ASC;
+-- List all shows with at least one genre
+
+SELECT TV_SHOWS.TITLE, TV_SHOW_GENRES.GENRE_ID
+FROM TV_SHOWS
+JOIN TV_SHOW_GENRES ON TV_SHOWS.ID = TV_SHOW_GENRES.SHOW_ID
+ORDER BY TV_SHOWS.TITLE ASC, TV_SHOW_GENRES.GENRE_ID ASC;
 
