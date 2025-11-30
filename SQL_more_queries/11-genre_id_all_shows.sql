@@ -1,7 +1,8 @@
--- List all shows with their genre IDs, show NULL if no genre
-
-SELECT TV_SHOWS.TITLE, TV_SHOW_GENRES.GENRE_ID
-FROM TV_SHOWS
-LEFT JOIN TV_SHOW_GENRES ON TV_SHOWS.ID = TV_SHOW_GENRES.SHOW_ID
-ORDER BY TV_SHOWS.TITLE ASC, TV_SHOW_GENRES.GENRE_ID ASC;
-
+-- Lists all shows contained in the database hbtn_0d_tvshows.
+-- Displays NULL for shows without genres.
+-- Records are ordered by ascending tv_shows.title and tv_show_genres.genre_id.
+SELECT s.`title`, g.`genre_id`
+  FROM `tv_shows` AS s
+       LEFT JOIN `tv_show_genres` AS g
+       ON s.`id` = g.`show_id`
+ ORDER BY s.`title`, g.`genre_id`;
