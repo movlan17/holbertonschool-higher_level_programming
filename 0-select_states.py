@@ -1,5 +1,4 @@
 #!/usr/bin/python3
-<<<<<<< HEAD
 """
 Lists all states from the database hbtn_0e_0_usa.
 """
@@ -37,18 +36,3 @@ if __name__ == "__main__":
     # Clean up
     cur.close()
     db.close()
-
-=======
-# Lists all states from the database hbtn_0e_0_usa.
-# Usage: ./0-select_states.py <mysql username> \
-#                             <mysql password> \
-#                             <database name>
-import sys
-import MySQLdb
-
-if __name__ == "__main__":
-    db = MySQLdb.connect(user=sys.argv[1], passwd=sys.argv[2], db=sys.argv[3])
-    c = db.cursor()
-    c.execute("SELECT * FROM `states`")
-    [print(state) for state in c.fetchall()]
->>>>>>> bb10a683382ae6e7a014ed15d4c484ae05e54bc7
