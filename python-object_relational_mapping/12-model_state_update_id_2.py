@@ -1,22 +1,40 @@
 #!/usr/bin/python3
 """
-Changes the name of a State object from the database hbtn_0e_6_usa
+This module updates a record in the 'states' table of a database
+using SQLAlchemy ORM.
 """
-import sys
-from model_state import Base, State
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
 
+from sqlalchemy import create_engine, Column, Integer, String
+from sqlalchemy.orm import declarative_base, sessionmaker
 
-if __name__ == '__main__':
-    engine = create_engine('mysql+mysqldb://{}:{}@localhost:3306/{}'.
-                           format(sys.argv[1], sys.argv[2], sys.argv[3]),
-                           pool_pre_ping=True)
-    Session = sessionmaker(bind=engine)
-    session = Session()
+# SQLAlchemy base class
+Base = declarative_base()
 
-    stateUpdated = session.query(State).filter(State.id == 2).first()
+# Define the States table
+class State(Base):
+    __tablename__ = 'states'
+    id = Column(Integer, primary_key=True)
+    name = Column(String(128), nullable=False)
 
-    if stateUpdated:
-        stateUpdated.name = 'New Mexico'
+# Connect to the database
+engine = create_engine('sqlite:///states.db')  # Change this to your DB
+Base.metadata.create_all(engine)
+Session = sessionmaker(bind=engine)
+session = Session()
+
+def update_state(state_id, new_name):
+    """
+    Updates the name of a state with a given id.
+    Prints 'No record found' if id does not exist.
+    """
+    state = session.query(State).filter_by(id=state_id).first()
+    if state:
+        state.name = new_name
         session.commit()
+        print(f"Record {state_id} updated to {new_name}")
+    else:
+        print("No record found")
+
+# Example usage (for testing)
+if __
+
