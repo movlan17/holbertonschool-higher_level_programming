@@ -18,7 +18,7 @@ if __name__ == "__main__":
 
     cur = conn.cursor()
 
-    # Safe query
+    # Safe query preventing SQL injection
     cur.execute(
         "SELECT * FROM states WHERE name = %s ORDER BY id ASC",
         (sys.argv[4],)
