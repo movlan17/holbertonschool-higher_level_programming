@@ -1,28 +1,22 @@
 #!/usr/bin/python3
-""" Module that contains a function that reads n lines of a text file
+"""
+This module contains a function that appends a string to the end
+of a UTF-8 text file and returns the number of characters added.
 """
 
 
-def read_lines(filename="", nb_lines=0):
-    """ Function that reads from a file and prints its number of lines
+def append_write(filename="", text=""):
+    """
+    Appends a string at the end of a text file (UTF-8)
+    and returns the number of characters added.
 
     Args:
-        filename: filename
-        nb_lines: number of lines to print
+        filename (str): Name of the file
+        text (str): Text to append
 
-    Raises
-        Exception: when the file can be opened
-
+    Returns:
+        int: Number of characters added
     """
+    with open(filename, "a", encoding="utf-8") as f:
+        return f.write(text)
 
-    with open(filename, 'r', encoding="utf-8") as f:
-        if nb_lines <= 0:
-            read_data = f.read()
-            print(read_data, end='')
-        else:
-            n_lines = 0
-            for line in f:
-                print(line, end='')
-                n_lines += 1
-                if n_lines == nb_lines:
-                    break
