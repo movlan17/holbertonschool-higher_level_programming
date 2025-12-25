@@ -1,12 +1,13 @@
 #!/usr/bin/node
 
-function factorial (n) {
-  if (n === 0 || isNaN(n)) {
-    return 1;
-  }
+const args = process.argv.slice(2).map(Number);
 
-  return n * factorial(n - 1);
+if (args.length < 2) {
+  console.log(0);
+} else {
+  let max = Math.max(...args);
+  let filtered = args.filter(num => num !== max);
+  let secondMax = Math.max(...filtered);
+  console.log(secondMax);
 }
 
-const n = parseInt(process.argv[2]);
-console.log(factorial(n));
